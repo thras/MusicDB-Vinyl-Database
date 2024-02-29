@@ -1,0 +1,12 @@
+{% extends 'music_blog/base.html' %}
+
+{% block content %}
+    {# Εμφανίζει τα στοιχεία της εταιρίας #}
+    <div class="col-md-4 col-lg-4 col-sm-4 col-xl-4 col-xs-12 D_align">
+        <p>Company: {{ comp_pk.company_name }}</p>
+        <p>Headquarters: {{ comp_pk.company_info }}</p>
+    </div>
+    <div class="col-md-8 col-lg-8 col-sm-8 col-xl-8 col-xs-12 D_align">
+        <p>Bio: <br>{{ comp_pk.company_bio }}</p>
+    </div>
+{% endblock content %}

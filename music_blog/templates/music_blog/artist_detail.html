@@ -1,0 +1,23 @@
+{% extends 'music_blog/base.html' %}
+
+{% block content %}
+    {# Εμφανίζει τα στοιχεία του καλλιτέχνη #}
+    <div class="col-md-4 col-lg-4 col-sm-4 col-xl-4 col-xs-12 D_align">
+        <p>Artist: {{ art_pk.artist_name }}</p>
+        <img class="img-thumbnail" width="250" height="250" src="{{ art_pk.artist_img.url }}">
+        <p>Official Website:</p>
+        <p><a href="{{art_pk.artist_url }}" target="_blank">{{art_pk.artist_url }}</a></p>
+    </div>
+    {# Εμφανίζει το βιογραφικό του καλλιτέχνη #}
+    <div class="col-md-8 col-lg-8 col-sm-8 col-xl-8 col-xs-12 D_align">
+        <h5>Bio:</h5>
+        <p>{{ art_pk.artist_bio }}</p>
+    </div>
+
+    {# Εμφανίζει την δισκογραφία του καλλιτέχνη #}
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xl-12 col-xs-12 D_align">
+        <h5>Discography:</h5>
+        <p>{{ art_pk.artist_discography | linebreaks }} </p>
+    </div>
+
+{% endblock content %}

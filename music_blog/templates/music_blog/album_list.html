@@ -1,0 +1,86 @@
+{% extends 'music_blog/base.html' %}
+
+
+{% block content %}
+
+    {# Δημιουργεί την φόρμα αναζήτησης #}
+    <div class="container row" style="margin-top: 2%; justify-content: center; max-width: inherit ">
+
+        <form type="get" action=".">
+        <input type="text" name="txt" placeholder="Album, Artist, Song, etc">
+        <input type="submit" class="btn-info" value="Search">
+        </form>
+
+    </div>
+
+    {# Δομή επανάληψης για την εμφάνιση των άλμπουμ (όλα ή το αποτέλεσμα της αναζήτησης) #}
+    {% for Album in albums %}
+        {# Εμφανίζει τον τίτλο, την φωτογραφία και τον καλλιτέχνη του άλμπουμ #}
+        <div class="col-md-4 col-lg-3 col-sm-6 col-xl-3 col-xs-12 D_align" >
+            <a href="{% url 'music_detail' pk=Album.pk %}"> {{ Album.album_name }}</a>
+            <p> {{ Album.album_artist }}</p>
+            <img id={{ Album.pk }} class="img-thumbnail" width="180" height="180" src="{{ Album.album_img.url }}">
+        </div>
+
+        {# Μεγενθύνση της φωτογραφίας του άλμπουμ #}
+        <div id="myModal" class="modal">
+
+        <!-- The Close Button -->
+            <span class="close">&times;</span>
+
+        <!-- Modal Content (The Image) -->
+            <img class="modal-content" id="img01">
+
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
+
+        </div>
+
+    {# javascript για την μεγένθυση #}
+    <script>
+    // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var img = document.getElementById({{ Album.pk }});
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+        img.onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+        }
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+        modal.style.display = "none";
+        }
+    </script>
+    {% endfor %}
+
+{# Δημιουργία των link της σελιδοποίησης #}
+<div class="container row" style=" justify-content: center; padding-top: 50px; max-width: inherit">
+<div class="pagination">
+    <span class="step-links">
+        {% if albums.has_previous %}
+            <a href="?page={{ albums.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current" style="color: yellow">
+            Page {{ albums.number }} of {{ albums.paginator.num_pages }}.
+        </span>
+
+        {% if albums.has_next %}
+            <a href="?page={{ albums.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+</div>
+
+
+
+{% endblock content %}
+

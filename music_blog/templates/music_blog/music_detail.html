@@ -1,0 +1,22 @@
+{% extends 'music_blog/base.html' %}
+
+{% block content %}
+    {# Εμφανίζει τα στοιχεία του άλμπουμ (φωτογραφία, καλλιτέχνη κτλ)#}
+    <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-12 D_align">
+        <p>Title: {{ album_pk.album_name }}</p>
+        <img class="img-thumbnail" width="250" height="250" src="{{ album_pk.album_img.url }}">
+        <p>Artist: <a href="{% url 'artist_detail' pk=album_pk.album_artist_id %}"> {{ album_pk.album_artist }}</a></p>
+        <p>Genre: {{ album_pk.album_genre }}</p>
+        <p>Released: {{ album_pk.album_year }}</p>
+        <p>Company: <a href="{% url 'company_detail' pk=album_pk.album_comp_id %}"> {{ album_pk.album_comp }}</a></p>
+    </div>
+
+    {# Εμφανίζει τα τραγούδια του άλμπουμ #}
+    <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-12 D_align">
+    <div class="track-para">
+        <p>Track List: {{ album_pk.album_songs | linebreaks }}</p>
+    </div>
+
+    </div>
+
+{% endblock content %}
